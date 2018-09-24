@@ -1,6 +1,6 @@
 {
   "name": "Graphic Editor",
-  "description": "Urban Sports Club: code test"
+  "description": "Urban Sports Club: test code",
   "require": {
     "php": "7.2.x",
     "ext-json": "*"
