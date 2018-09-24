@@ -8,7 +8,7 @@ namespace GraphicEditor\Interfaces;
  * Interface ShapeInterface
  * @package GraphicEditor\Shapes
  */
-interface ShapeInterface extends OutputInterface
+interface ShapeInterface extends OutputInterface, DecorableInterface
 {
     /**
      * Get type name

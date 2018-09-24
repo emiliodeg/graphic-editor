@@ -86,18 +86,8 @@ class Circle extends ShapeAbstract implements ShapeInterface
     /**
      * @inheritDoc
      */
-    public function save(string $fileName): bool
-    {
-        // TODO: Implement save() method.
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function render()
     {
         // TODO: Implement render() method.
     }
-
-
 }

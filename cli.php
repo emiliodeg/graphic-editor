@@ -18,9 +18,45 @@ $graphicEditor->addShape(new Circle())
     ->addShape(new Rectangle());
 
 $graphicEditor->import([
-    ['type' => 'circle', 'params' => ['radius' => 1.25]],
-    ['type' => 'circle', 'params' => ['radius' => 5]],
+    // #1 circle
+    [
+        'type' => 'circle',
+        'params' => [
+            'radius' => 1.25
+        ],
+        'decorators' => [
+            'border' => [
+                'decorator' => \GraphicEditor\Decorator\Border::class, // or border
+                'width' => 5,
+                'color' => 'ff0000', // red
+            ]
+        ]
+    ],
+
+    // #2 circle
+    [
+        'type' => 'circle',
+        'params' => [
+            'radius' => 5,
+        ],
+        'decorators' => [
+            'border' => [
+                'decorator' => 'border',
+                'width' => 5,
+                'color' => 'ff0000', // red
+            ],
+            'background' => [
+                'decorator' => \GraphicEditor\Decorator\Background::class, // or background
+                'width' => 5,
+                'color' => '00ff00', // green
+            ],
+        ]
+    ],
+
+    // #3 rectangle
     ['type' => 'rectangle', 'params' => ['height' => 3, 'width' => '2.98']],
+
+    // #4 rectangle
     ['type' => 'rectangle', 'params' => ['height' => 4.3698764, 'width' => 4.3698766]],
 
     // unsupported data
@@ -29,6 +65,8 @@ $graphicEditor->import([
 ]);
 
 /**
+ * Helper to show array
+ *
  * @param string $title
  * @param array $data
  * @return string
@@ -49,6 +87,7 @@ function renderArray(string $title, array $data): string
     return $result;
 }
 
+// show help or execute some command
 switch ($_SERVER['argv'][1] ?? null) {
     case "areas":
         echo renderArray("AREAS", $graphicEditor->getAreas());
@@ -58,6 +97,11 @@ switch ($_SERVER['argv'][1] ?? null) {
         echo renderArray("PERIMETERS", $graphicEditor->getPerimeters());
         break;
 
+    case "save-all":
+        echo "SAVE ALL SHAPES" . PHP_EOL;
+        echo "Saved shapes: " . $graphicEditor->save();
+        break;
+
     case "help":
     default:
         echo "GRAPHIC EDITOR Ver: 0.1.0" . PHP_EOL;
@@ -65,6 +109,7 @@ switch ($_SERVER['argv'][1] ?? null) {
 
         echo "areas: shows all the areas of the shapes" . PHP_EOL;
         echo "perimeters: shows all the perimeters of the shapes" . PHP_EOL;
+        echo "save-all: save all shapes in files (dummy)" . PHP_EOL;
         echo "help: show general information and commands" . PHP_EOL;
         break;
 }

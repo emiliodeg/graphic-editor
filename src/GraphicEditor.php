@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GraphicEditor;
 
+use GraphicEditor\Interfaces\DecoratorInterface;
 use GraphicEditor\Interfaces\ShapeInterface;
 
 /**
@@ -123,6 +124,39 @@ class GraphicEditor
 
         foreach ($this->data as $shape) {
             $result[] = $this->shapes[$shape['type']]->setFromArray($shape['params'])->getPerimeter();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Save shapes into files
+     *
+     * @return int number of saved files
+     */
+    public function save(): int
+    {
+        $result = $fileName = 0;
+
+        foreach ($this->data as $data) {
+            $shape = $this->shapes[$data['type']]->setFromArray($data['params']);
+
+            // this shape doesn't support decorators
+            if (!$shape instanceof DecoratorInterface) {
+                continue;
+            }
+
+            // don't have neccesary data to decorate
+            if (!isset($data['decorators']) || !is_array($data['decorators'])) {
+                continue;
+            }
+
+            $shape->setDecoratorsFromArray($data['decorators']);
+
+            // save and increment counter if the file is saved
+            if ($shape->save($fileName++ . '.jpg')) {
+                $result++;
+            }
         }
 
         return $result;

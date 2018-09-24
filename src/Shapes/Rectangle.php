@@ -133,14 +133,6 @@ class Rectangle extends ShapeAbstract implements ShapeInterface, SideShapeInterf
     /**
      * @inheritDoc
      */
-    public function save(string $fileName): bool
-    {
-        return file_put_contents($this->render(), $fileName) !== false;
-    }
-
-    /**
-     * @inheritDoc
-     */
     public function render()
     {
         // TODO: Implement render() method.
