@@ -14,5 +14,6 @@ Supported commands:
 
 areas: shows all the areas of the shapes
 perimeters: shows all the perimeters of the shapes
+save-all: save all shapes in files (dummy)
 help: show general information and commands
 ```
